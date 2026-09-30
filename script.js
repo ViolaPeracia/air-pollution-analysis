@@ -347,37 +347,55 @@
   // Search Index Dictionary
   const searchIndex = [
     {
-      title: "W01 — Khởi động Dự án & Thiết lập Môi trường CRISP-DM",
+      title: "Trạng thái triển khai thực tế — Milestone 1–2 đã xong",
+      category: "Trạng thái",
+      snippet: "Issue #1–#7 DONE. 259 unit test tất định, mutation score 21/21 = 100%, 9.044 dòng × 18 cột, 9 tài liệu trong docs/, CI GitHub Actions.",
+      targetId: "hero"
+    },
+    {
+      title: "Repository Structure — cây thư mục thực tế",
+      category: "Trạng thái",
+      snippet: "Cấu trúc thật của doctor-cato/air-pollution-analysis@main: src/, tests/, notebooks/, scripts/fetch_dataset.py, .github/workflows/ci.yml.",
+      targetId: "repository"
+    },
+    {
+      title: "Project Milestones — M1 đến M6",
+      category: "Trạng thái",
+      snippet: "M1 Project Setup (Xong) · M2 Data Audit & Cleaning (Xong) · M3 Midterm · M4 Modeling · M5 Ethics · M6 Final Defense.",
+      targetId: "milestones"
+    },
+    {
+      title: "W01 — Khởi động Dự án & Thiết lập Môi trường CRISP-DM ✓ Xong",
       category: "Roadmap",
-      snippet: "Thiết lập cấu trúc thư mục, gitignore, requirements.txt, dữ liệu thô bất biến, chuẩn CRISP-DM.",
+      snippet: "Issue #1, #2, #19 DONE — cấu trúc thư mục, .gitignore, requirements.txt, notebook 00_environment_test.ipynb, research_questions.md, data_dictionary.md.",
       targetId: "week-body-1",
       weekNum: 1
     },
     {
-      title: "W02 — Thu thập Dữ liệu Đa nguồn (Multi-source Data Collection)",
+      title: "W02 — Thu thập Dữ liệu Đa nguồn (Multi-source Data Collection) ✓ Xong",
       category: "Roadmap",
-      snippet: "OpenAQ REST API v3, Open-Meteo Historical API, trạm US Embassy BAM 1020, data_dictionary.md, lưu trữ Parquet.",
+      snippet: "Issue #3, #4 DONE — OpenAQ S3 public archive (location_id=4946811, 8.022 bản ghi), Open-Meteo ERA5 (9.072 mốc giờ), không cần API key, 57 unit test.",
       targetId: "week-body-2",
       weekNum: 2
     },
     {
-      title: "W03 — Kiểm toán Chất lượng Dữ liệu (Data Quality Audit)",
+      title: "W03 — Kiểm toán Chất lượng Dữ liệu (Data Quality Audit) ✓ Xong",
       category: "Roadmap",
-      snippet: "6 Chiều chất lượng quốc tế, phát hiện missing ngụy trang (-999), cơ chế Rubin (MCAR, MAR, MNAR).",
+      snippet: "Issue #5 DONE — 6 chiều chất lượng, cơ chế khuyết thiếm Rubin, inner join 100% độ phủ không Row Explosion, docs/data_quality_audit.md.",
       targetId: "week-body-3",
       weekNum: 3
     },
     {
-      title: "W04 — Thực hành Làm sạch & Lập Cleaning Log",
+      title: "W04 — Thực hành Làm sạch & Lập Cleaning Log ✓ Xong",
       category: "Roadmap",
-      snippet: "Lọc logic PM2.5 <= PM10, xử lý kẹt cảm biến, reindex chuỗi thời gian lưới 1 giờ, cleaning_log.md.",
+      snippet: "Issue #6 DONE — chuẩn hoá UTC+7, ràng buộc PM2.5 <= PM10, reindex lưới 1 giờ đa trạm (8.022 → 9.044 dòng), 107 unit test, cleaning_log.md sinh tự động.",
       targetId: "week-body-4",
       weekNum: 4
     },
     {
-      title: "W05 — Biến đổi, Tích hợp & Đóng gói Pipeline",
+      title: "W05 — Biến đổi, Tích hợp & Đóng gói Pipeline ✓ Xong",
       category: "Roadmap",
-      snippet: "Merge timestamp không gây Row Explosion, RobustScaler, log-transform, Scikit-Learn Pipeline, xuất Parquet.",
+      snippet: "Issue #7 DONE — merge có guard, freeze, split thời gian, Scikit-Learn Pipeline chống rò rỉ, validate_no_leakage(), mutation score 21/21 = 100%.",
       targetId: "week-body-5",
       weekNum: 5
     },
@@ -496,7 +514,7 @@
     {
       title: "Cấu trúc Repository Chuẩn mực & Lệnh Copy",
       category: "Repository",
-      snippet: "Cây thư mục data/raw, interim, processed, docs, notebooks, src, figures, reports, requirements.txt.",
+      snippet: "Cây thư mục thực tế: data/raw (gitignored, có metadata.json SHA-256), data/interim, data/processed, docs/ (9 tài liệu), notebooks/ (00–03), scripts/fetch_dataset.py, src/ (4 module), tests/ (259 test), figures/, reports/.",
       targetId: "repository"
     }
   ];

@@ -90,6 +90,7 @@
 
       <div class="search-hints">
         <span>Gợi ý tìm nhanh:</span>
+        <button type="button" class="search-tag" data-query="Trạng thái">Trạng thái</button>
         <button type="button" class="search-tag" data-query="PM2.5">PM2.5</button>
         <button type="button" class="search-tag" data-query="Mann-Whitney">Mann-Whitney</button>
         <button type="button" class="search-tag" data-query="Regression">Regression</button>
@@ -137,10 +138,31 @@
               <span class="metadata-pill-label">Explanatory Charts:</span> 7 Planned
             </div>
             <div class="metadata-pill">
-              <span class="metadata-pill-label">Time-Series Scope:</span> 2-Year Hourly (2023–2024)
+              <span class="metadata-pill-label">Actual Data Coverage:</span> 12-Month Hourly (2025-07 &rarr; 2026-07)
+            </div>
+            <div class="metadata-pill">
+              <span class="metadata-pill-label">Canonical Dataset:</span> 9.044 &times; 18 (Cleaned Parquet)
+            </div>
+            <div class="metadata-pill">
+              <span class="metadata-pill-label">Status:</span> Milestone 1&ndash;2 Complete
             </div>
             <div class="metadata-pill">
               <span class="metadata-pill-label">Core Tech:</span> Python + Pandas + Scikit-Learn
+            </div>
+          </div>
+
+          <!-- Implementation Status Callout -->
+          <div class="callout callout-emerald" style="margin-top: 2rem; text-align: left;">
+            <div class="callout-title">✅ HIỆN TRẠNG TRIỂN KHAI THỰC TẾ (CẬP NHẬT TỪ <code>doctor-cato/air-pollution-analysis@main</code>)</div>
+            <div class="callout-content">
+              <strong>Milestone 1 &amp; 2 đã hoàn tất</strong> — Issues <strong>#1&ndash;#7 DONE</strong>.
+              Đã có pipeline thu thập OpenAQ + Open-Meteo, kiểm toán chất lượng 6 chiều, làm sạch tất định và pipeline chống rò rỉ dữ liệu.
+              <br><br>
+              <strong>259 unit test</strong> tất định (chạy offline) &bull; <strong>Mutation score 21/21 = 100%</strong> cho <code>src/cleaning_pipeline.py</code> &bull;
+              <strong>9 tài liệu</strong> trong <code>docs/</code> &bull; CI GitHub Actions kiểm định tự động.
+              <br><br>
+              <em>Phần EDA, suy luận thống kê, mô hình hóa (Issues #8&ndash;#17) vẫn là kế hoạch — chưa hiện thực hóa. Mọi biểu đồ dưới đây được dán nhãn
+              <strong>PLANNED VISUALIZATION</strong>, không phải kết quả thực nghiệm.</em>
             </div>
           </div>
 
@@ -232,10 +254,11 @@
                 <span>Dataset Scope (Phạm vi dữ liệu)</span>
               </h4>
               <ul class="summary-list">
-                <li>Chuỗi thời gian đo theo giờ (hourly) liên tục trong 2 năm trọn vẹn (2023–2024).</li>
-                <li>Dữ liệu chất lượng không khí: Nồng độ PM2.5, PM10 từ trạm tham chiếu US Embassy qua OpenAQ REST API v3.</li>
-                <li>Dữ liệu khí tượng: Nhiệt độ, độ ẩm tương đối, tốc độ gió, hướng gió, lượng mưa, áp suất khí quyển từ Open-Meteo API (ERA5 Reanalysis).</li>
-                <li>Quy mô: &approx; 17.520 dòng quan trắc, lưu trữ tối ưu dưới định dạng Parquet.</li>
+                <li>Chuỗi thời gian đo theo giờ (hourly) — <strong>dải thực tế 2025-07-03 22:00 &rarr; 2026-07-15 17:00 (UTC+7)</strong>, suy ra từ độ bao phủ thực nghiệm chứ không đặt trước.</li>
+                <li>Dữ liệu chất lượng không khí: PM2.5, PM10 từ trạm <code>VN001_HANOI_556_NGUYEN_VAN_CU</code> (556 Nguyễn Văn Cừ, Long Biên) qua OpenAQ S3 public archive (<code>location_id=4946811</code>) — <strong>8.022 bản ghi</strong>.</li>
+                <li>Dữ liệu khí tượng: Nhiệt độ, độ ẩm tương đối, tốc độ gió, hướng gió, lượng mưa, áp suất khí quyển từ Open-Meteo ERA5 Reanalysis — <strong>9.072 mốc giờ</strong>.</li>
+                <li><code>inner join</code> trên <code>timestamp</code> cho đúng <strong>8.022 bản ghi (100% độ phủ)</strong>, không xảy ra Row Explosion. Sau reindex lưới 1 giờ: <strong>9.044 dòng &times; 18 cột</strong> Parquet.</li>
+                <li>Tổng dung lượng &lt; 20 MB &rarr; Parquet (Snappy) + Pandas. Không dùng Spark / Deep Learning.</li>
               </ul>
             </div>
 
@@ -561,7 +584,7 @@
         <div class="section-header">
           <div class="section-tag">Week-by-Week Execution</div>
           <h2 class="section-title" id="roadmapTitle">15-Week Detailed Roadmap</h2>
-          <p class="section-desc">Lộ trình học tập và triển khai đồ án 15 tuần theo chuẩn môn học INFO3020. Từng tuần được trang bị mục tiêu, nhiệm vụ chi tiết, sản phẩm bàn giao và định nghĩa hoàn thành (Definition of Done) nghiêm ngặt.</p>
+          <p class="section-desc">Lộ trình học tập và triển khai đồ án 15 tuần theo chuẩn môn học INFO3020. Từng tuần được trang bị mục tiêu, nhiệm vụ chi tiết, sản phẩm bàn giao và định nghĩa hoàn thành (Definition of Done) nghiêm ngặt. <strong>Tuần W01&ndash;W05 (Milestone 1&ndash;2) đã hoàn thành</strong> — đánh dấu <span class="badge badge-emerald">&#10003; Xong</span> theo trạng thái thực tế tại kho mã nguồn chuẩn.</p>
         </div>
 
         <!-- Interactive Timeline Controls -->
@@ -595,6 +618,7 @@
                 </div>
               </div>
               <div class="timeline-card-right">
+                <span class="badge badge-emerald">&#10003; Xong</span>
                 <span class="badge badge-subtle">Học / Kickoff</span>
                 <span class="timeline-expand-arrow">▶</span>
               </div>
@@ -653,6 +677,7 @@
                 </div>
               </div>
               <div class="timeline-card-right">
+                <span class="badge badge-emerald">&#10003; Xong</span>
                 <span class="badge badge-subtle">Thu thập</span>
                 <span class="timeline-expand-arrow">▶</span>
               </div>
@@ -710,6 +735,7 @@
                 </div>
               </div>
               <div class="timeline-card-right">
+                <span class="badge badge-emerald">&#10003; Xong</span>
                 <span class="badge badge-subtle">Kiểm toán</span>
                 <span class="timeline-expand-arrow">▶</span>
               </div>
@@ -767,6 +793,7 @@
                 </div>
               </div>
               <div class="timeline-card-right">
+                <span class="badge badge-emerald">&#10003; Xong</span>
                 <span class="badge badge-subtle">Làm sạch</span>
                 <span class="timeline-expand-arrow">▶</span>
               </div>
@@ -826,6 +853,7 @@
                 </div>
               </div>
               <div class="timeline-card-right">
+                <span class="badge badge-emerald">&#10003; Xong</span>
                 <span class="badge badge-subtle">Pipeline</span>
                 <span class="timeline-expand-arrow">▶</span>
               </div>
@@ -2458,7 +2486,7 @@
         <div class="section-header">
           <div class="section-tag">Codebase Structure</div>
           <h2 class="section-title" id="repoTitle">Project Repository Structure</h2>
-          <p class="section-desc">Cấu trúc cây thư mục chuẩn mực khoa học dữ liệu theo hướng dẫn INFO3020, tách bạch rõ ràng giữa dữ liệu thô, module xử lý, sổ tay phân tích và báo cáo.</p>
+          <p class="section-desc">Cấu trúc thực tế của kho mã nguồn chuẩn <a href="https://github.com/doctor-cato/air-pollution-analysis" target="_blank" rel="noopener"><code>doctor-cato/air-pollution-analysis</code></a> tại nhánh <code>main</code> — tách bạch rõ ràng giữa dữ liệu thô, module xử lý, sổ tay phân tích và báo cáo.</p>
         </div>
 
         <div class="repo-card">
@@ -2473,36 +2501,59 @@
               <span id="copyBtnText">Copy Tree</span>
             </button>
           </div>
-          <pre class="repo-code-block"><code id="repoStructureCode">air-pollution-analysis/
-├── .gitignore               # Chặn data/raw, __pycache__, .env, checkpoints
-├── README.md                # Giới thiệu đề tài, hướng dẫn tái lập, phân công, tuyên bố AI
-├── requirements.txt         # Danh sách thư viện và phiên bản cố định
+          <pre class="repo-code-block"><code id="repoStructureCode">air-pollution-analysis/            &lt;-- kho mã nguồn chuẩn: doctor-cato/air-pollution-analysis
+├── .github/
+│   └── workflows/ci.yml     # CI: syntax check + unittest + smoke test
+├── .agents/                 # Quy tắc, kỹ năng, quy trình chuẩn hoá cho tác nhân
+├── AGENTS.md                # Chỉ dẫn kiến trúc & quy tắc kỹ thuật
+├── CONTRIBUTING.md          # Quy trình Git, chuẩn commit, bảo vệ dữ liệu
+├── LICENSE                  # MIT License
+├── README.md                # Tổng quan, hiện trạng, hướng dẫn tái lập 8 bước
+├── requirements.txt         # Thư viện & phiên bản cố định (Python 3.10+)
 ├── data/
-│   ├── raw/                 # DỮ LIỆU GỐC BẤT BIẾN (.json, .csv từ OpenAQ & Open-Meteo)
-│   │   └── metadata.json    # Thời điểm cào, schema gốc, giấy phép bản quyền
-│   ├── interim/             # Dữ liệu sau kiểm toán 6 chiều, xử lý múi giờ UTC+7
-│   └── processed/           # Dữ liệu sạch hoàn chỉnh lưu dạng Parquet (.parquet)
-├── docs/
-│   ├── data_dictionary.md   # Từ điển dữ liệu (Tên cột, Kiểu, Đơn vị, Vai trò)
-│   ├── cleaning_log.md      # Nhật ký làm sạch (Mọi quyết định đều có lý do)
-│   ├── datasheet.md         # Datasheet for Dataset chuẩn Week 12
-│   └── model_card.md        # Model Card 1 trang cho Early Alert Classifier
+│   ├── raw/                 # DỮ LIỆU GỐC BẤT BIẾN — KHÔNG Git-track (chính sách Tầng C)
+│   │   ├── metadata.json    # Xuất xứ, tham số truy vấn, SHA-256, giấy phép
+│   │   └── .gitkeep
+│   ├── interim/             # Parquet canonical: sau nạp, chuẩn hoá, làm sạch tất định
+│   │   └── .gitkeep
+│   └── processed/           # air_pollution_final.parquet — 9.044 dòng x 18 cột
+│       └── .gitkeep
+├── docs/                    # 9 tài liệu học thuật
+│   ├── roadmap.md           # LỘ TRÌNH 15 TUẦN — nguồn chuẩn phạm vi
+│   ├── ROADMAP_INFO3020_Air_Pollution.md   # Bản tham chiếu đề cương gốc
+│   ├── air_quality_project_overview.md     # Tổng quan định hướng đề tài
+│   ├── research_questions.md               # SQ1-SQ4 trung lập khoa học  [Issue #2]
+│   ├── data_dictionary.md    # Canonical Schema: 11 trường, 8 thuộc tính [Issue #2]
+│   ├── source_profiling.md   # Mục lục hồ sơ thẩm định đa nguồn      [Issue #19]
+│   ├── source_profiling_decision.md  # Quyết định cổng nguồn dữ liệu  [Issue #19]
+│   ├── data_quality_audit.md # Kiểm toán 6 chiều + khuyết thiếm Rubin  [Issue #5]
+│   ├── cleaning_log.md       # Nhật ký làm sạch tất định (sinh tự động)[Issue #6]
+│   └── superpowers/plans/    # Kế hoạch triển khai chi tiết từng tác vụ
 ├── notebooks/
-│   ├── 01_data_collection.ipynb       # Script cào API OpenAQ & Open-Meteo
-│   ├── 02_quality_audit_cleaning.ipynb# 6 Chiều chất lượng, phân loại MCAR/MNAR
-│   ├── 03_exploratory_data_analysis.ipynb # 4 Họ thống kê mô tả, Anscombe check
-│   ├── 04_statistical_inference.ipynb # 3 Kiểm định giả thuyết, Effect sizes, Bootstrap CI
-│   ├── 05_regression_modeling.ipynb   # Hồi quy OLS, LINE diagnostics, Ridge/Lasso
-│   └── 06_classification_alerts.ipynb # Random Forest, PR-AUC, Threshold tuning
+│   ├── 00_environment_test.ipynb           # Smoke test môi trường       [Issue #1]
+│   ├── 01_data_collection.ipynb            # Thu thập & kiểm định dữ liệu [#3, #4]
+│   ├── 02_quality_audit.ipynb              # Trình bày kiểm toán 6 chiều   [Issue #5]
+│   ├── 03_data_cleaning.ipynb              # Làm sạch & sinh Cleaning Log  [Issue #6]
+│   └── 03_transformation_pipeline.ipynb    # Pipeline chống rò rỉ dữ liệu [Issue #7]
+├── scripts/
+│   └── fetch_dataset.py     # Tải & kiểm chứng tập dữ liệu (không cần API key)
 ├── src/
 │   ├── __init__.py
-│   ├── data_loader.py       # Hàm nạp Parquet, kiểm tra schema
-│   ├── cleaning_pipeline.py # Scikit-Learn Pipeline đóng gói tiền xử lý
-│   └── visualizer.py        # Hàm vẽ biểu đồ phong cách Tufte/Cleveland
-├── figures/                 # Toàn bộ biểu đồ FIG-01 đến FIG-07 (PNG, 300 DPI)
-└── reports/
-    ├── midterm_report.pdf   # Báo cáo giữa kỳ EDA (8-10 trang, Tuần 8)
-    └── final_report.pdf     # Báo cáo đồ án tốt nghiệp môn học (Tuần 15)</code></pre>
+│   ├── data_collection.py   # Adapter OpenAQ, Open-Meteo, AirNow + validation  [#3, #4]
+│   ├── data_quality.py      # Kiểm toán chất lượng 6 chiều, khuyết thiếm    [Issue #5]
+│   ├── cleaning.py          # Làm sạch tất định, kẹt cảm biến, reindex      [Issue #6]
+│   └── cleaning_pipeline.py # Merge, freeze, split thời gian, sklearn Pipe   [Issue #7]
+├── tests/                   # 259 unit test tất định, chạy offline
+│   ├── test_data_collection.py          # 57 test
+│   ├── test_data_quality.py             # 14 test
+│   ├── test_cleaning.py                 # 107 test
+│   ├── test_cleaning_pipeline.py        # 38 test
+│   ├── test_cleaning_pipeline_guards.py # 34 test hồi quy — FAIL trên bản gốc
+│   └── test_fetch_dataset.py            # 9 test
+├── figures/                 # Biểu đồ FIG-01 → FIG-07 (PNG, 300 DPI) — CHƯA SINH
+│   └── .gitkeep
+└── reports/                 # Báo cáo giữa kỳ & tổng kết — CHƯA SINH
+    └── .gitkeep</code></pre>
         </div>
       </div>
     </section>
@@ -2517,7 +2568,7 @@
         <div class="section-header">
           <div class="section-tag">Project Progression</div>
           <h2 class="section-title" id="milestonesTitle">Project Milestones (M1 to M6)</h2>
-          <p class="section-desc">6 mốc đánh giá tiến độ lớn định hình thành công của đồ án trong suốt học kỳ.</p>
+          <p class="section-desc">6 mốc đánh giá tiến độ lớn định hình thành công của đồ án trong suốt học kỳ. Trạng thái cập nhật theo <code>doctor-cato/air-pollution-analysis@main</code>.</p>
         </div>
 
         <div class="milestones-grid">
@@ -2527,9 +2578,10 @@
               <span class="milestone-id">MILESTONE 1</span>
               <span class="milestone-weeks">Week 1–2</span>
             </div>
-            <div class="milestone-name">Project Setup &amp; Data Collection</div>
+            <div class="milestone-name">Project Setup &amp; Data Collection <span class="badge badge-emerald">Done</span></div>
             <div class="milestone-goal">Khởi tạo repository chuẩn, thu thập dữ liệu thô từ OpenAQ &amp; Open-Meteo, xây dựng Data Dictionary 100% cột.</div>
             <div class="milestone-criteria">Tiêu chí: Clone repo về máy mới chạy <code>pip install</code> thành công 100%; dữ liệu thô lưu bất biến.</div>
+            <div class="milestone-criteria">Thực tế: <strong>Issue #1, #2, #3, #4, #19 DONE</strong> — 57 unit test thu thập, dữ liệu thô 8.022 bản ghi có SHA-256 trong <code>metadata.json</code>.</div>
           </div>
 
           <!-- M2 -->
@@ -2538,9 +2590,10 @@
               <span class="milestone-id">MILESTONE 2</span>
               <span class="milestone-weeks">Week 3–5</span>
             </div>
-            <div class="milestone-name">Data Audit &amp; Cleaning Checkpoint</div>
+            <div class="milestone-name">Data Audit &amp; Cleaning Checkpoint <span class="badge badge-emerald">Done</span></div>
             <div class="milestone-goal">Hoàn thành hồ sơ kiểm toán 6 chiều, xử lý lỗi trạm, merge dữ liệu không nổ dòng và đóng gói Pipeline Parquet.</div>
             <div class="milestone-criteria">Tiêu chí: <code>cleaning_log.md</code> ghi nhận đầy đủ mọi phép xóa; Pipeline chạy thông suốt không rò rỉ dữ liệu.</div>
+            <div class="milestone-criteria">Thực tế: <strong>Issue #5, #6, #7 DONE</strong> — 9.044 dòng &times; 18 cột; <strong>259 test</strong>; mutation score <strong>21/21 = 100%</strong>.</div>
           </div>
 
           <!-- M3 -->
@@ -2549,7 +2602,7 @@
               <span class="milestone-id">MILESTONE 3</span>
               <span class="milestone-weeks">Week 8</span>
             </div>
-            <div class="milestone-name">Báo cáo Giữa kỳ (Midterm Presentation)</div>
+            <div class="milestone-name">Báo cáo Giữa kỳ (Midterm Presentation) <span class="badge badge-subtle">Chưa bắt đầu</span></div>
             <div class="milestone-goal">Nộp báo cáo EDA 8–10 trang, thuyết trình 7 phút + 3 phút hỏi đáp phản biện (Viva) trước giảng viên.</div>
             <div class="milestone-criteria">Tiêu chí: Restart Kernel &amp; Run All notebook thành công; đạt rubric điểm 5 thành phần môn học.</div>
           </div>
@@ -2560,7 +2613,7 @@
               <span class="milestone-id">MILESTONE 4</span>
               <span class="milestone-weeks">Week 9–11</span>
             </div>
-            <div class="milestone-name">Phân tích Nâng cao &amp; Modeling</div>
+            <div class="milestone-name">Phân tích Nâng cao &amp; Modeling <span class="badge badge-subtle">Chưa bắt đầu</span></div>
             <div class="milestone-goal">Kiểm định giả thuyết phi tham số (Effect size + CI), hồi quy OLS thỏa mãn LINE, phân loại cảnh báo PR-AUC.</div>
             <div class="milestone-criteria">Tiêu chí: Đánh giá trên tập Test độc lập; diễn giải hệ số &beta; tuân thủ 3 nghĩa vụ, kiểm toán 4 loại leakage.</div>
           </div>
@@ -2571,7 +2624,7 @@
               <span class="milestone-id">MILESTONE 5</span>
               <span class="milestone-weeks">Week 12–14</span>
             </div>
-            <div class="milestone-name">Ethics, Mentoring &amp; Storytelling</div>
+            <div class="milestone-name">Ethics, Mentoring &amp; Storytelling <span class="badge badge-subtle">Chưa bắt đầu</span></div>
             <div class="milestone-goal">Kiểm toán Bias, viết Datasheet &amp; Model Card, tiếp thu góp ý cố vấn của ThS. Phạm Ngọc Đông, soạn thảo báo cáo SCQA.</div>
             <div class="milestone-criteria">Tiêu chí: Hoàn thành 100% checklist đạo đức; giải quyết tất cả các điểm nghi vấn của giảng viên.</div>
           </div>
@@ -2582,7 +2635,7 @@
               <span class="milestone-id">MILESTONE 6</span>
               <span class="milestone-weeks">Week 15</span>
             </div>
-            <div class="milestone-name">Final Defense (Bảo vệ Đồ án Cuối kỳ)</div>
+            <div class="milestone-name">Final Defense (Bảo vệ Đồ án Cuối kỳ) <span class="badge badge-subtle">Chưa bắt đầu</span></div>
             <div class="milestone-goal">Thuyết trình bảo vệ trước Hội đồng chấm thi, giải trình từng dòng code trong phần vấn đáp cá nhân (Oral Viva).</div>
             <div class="milestone-criteria">Tiêu chí: Vượt qua toàn diện phản biện cá nhân; repo GitHub hoàn chỉnh, đóng gói bàn giao đồ án.</div>
           </div>
@@ -2601,7 +2654,9 @@
         <div class="footer-sub">Time-Series Air Pollution Analysis &bull; Academic Project Roadmap</div>
       </div>
       <div class="footer-right">
-        <span class="footer-badge">Single Source of Truth: ROADMAP_INFO3020_Air_Pollution.md</span>
+        <span class="footer-badge">Authoritative Plan: docs/roadmap.md</span>
+        <span class="footer-badge">Status: Milestone 1&ndash;2 Complete &bull; Issues #1&ndash;#7 DONE</span>
+        <span class="footer-badge">Code: github.com/doctor-cato/air-pollution-analysis</span>
         <span class="footer-badge">Deployed with GitHub Pages</span>
       </div>
     </div>
